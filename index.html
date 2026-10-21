@@ -33,23 +33,23 @@ button:disabled{opacity:.6}
 <main>
  <form class="box" id="f" autocomplete="off">
   <div class="stripes"><i style="background:var(--tA)"></i><i style="background:var(--tB)"></i><i style="background:var(--tC)"></i><i style="background:var(--tD)"></i></div>
-  <h1>Bio HL Exam Quest</h1>
-  <p>Biology HL exam preparation. Enter your personal access code to start.</p>
-  <label for="code">Access code</label>
+  <h1>Bio Exam Quest</h1>
+  <p>Biology SL &amp; HL exam preparation. Enter your personal access code.<br>Preparación para el examen de Biología NM y NS. Ingresa tu código de acceso.</p>
+  <label for="code">Access code · Código de acceso</label>
   <input type="text" id="code" placeholder="NAME-XXXX-XXXX-XXXX" spellcheck="false" autocapitalize="characters">
-  <div class="rem"><input type="checkbox" id="rem" checked><label for="rem" style="text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink)">Remember me on this device</label></div>
-  <button id="go" type="submit">Unlock</button>
+  <div class="rem"><input type="checkbox" id="rem" checked><label for="rem" style="text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink)">Remember me · Recordarme en este dispositivo</label></div>
+  <button id="go" type="submit">Unlock · Entrar</button>
   <div class="msg" id="msg" role="status"></div>
-  <div class="foot">No code? Contact Mr. A. Agurto.</div>
+  <div class="foot">No code? Contact Mr. A. Agurto. · ¿No tienes código? Contacta a Mr. A. Agurto.</div>
  </form>
 </main>
 <script>
-var CFG=/*CFG-START*/{"salt":"6Zq/lSaRd/W4jXfxQleBKg==","iter":250000,"iv":"hKUPtU3nw1peUTsj","parts":["app-part1.bin"],"ver":"1792524584631","e":[{"w":"aq/hjiF4UyqSWaL1E9VJOnj+coSxe6N+eya/nLW7LyUpDoKiAdgdnykEUKBgtLTMwPPfEZOgd20ef6FE","x":0,"a":1,"m":"bE4asONqdCveU2tJKxTy9qdeUgmFow2t/wUltXCo05qyaaV3QZ/0FUnH3n35RUub2gnN9ryrcy+omlrIut5/0byR3fb38qfJSVI8KMItnaz5A+60IfrA07sI6A=="},{"w":"eMQlx5qClNyYKs8tuAkZAxN2/Bv5u9c9FlnbFomILd94cehReemsuCDsVl5MwStJhzHE7fq/FZvYn1RU","x":1792613208553,"a":0,"m":"3d578mxMPUwm+XwdrIzMCduuHn/dXWD2ww+i1l/BXP5DgtQCVmb0j26KyYGgRY2Z0gFsKaqphmWWErkIg5flezGnpLdUUifp61brK95R"},{"w":"Dmq+Tptc4aD4+KhNMBfiemXDz0HovAVzMSvMlIQ+mJLT3zHTNSg72ERIvfnz/uM90IkA+rfxyhCjgzZK","x":1792558740000,"a":0,"m":"GwWrg3tdj4/FjiO9J0AUHZLLU2tMJbMWgu++cdowjyU3oigCDA8Jk5kgMiSpIBx8Uxn720fn+45+E1a5VEGsndgG6fuXvYsbBbmNKb6jthe1Vg=="}]}/*CFG-END*/;
+var CFG=/*CFG-START*/{"salt":"U2mucpDZTWXVTdF+/L4gyw==","iter":250000,"iv":"xVtFbxAYf23yaR7X","parts":["app-part1.bin"],"ver":"1792589878243","e":[{"w":"9BKJ7DSNzr7X+lPX6dvtAuE/XWftf1KER2FbJww+7AjOtcfBMv6ts++nuv37EwsqeX8INMGxqvXWKAF4","x":0,"a":1,"m":"V4viqG7nTh/r2lViBrIdD/i+v1VZLNS1gvixpRFNSIz8TuLLSAqODQyPXlbV2W8SAML2UL/h65t8171r+2pTHlDWI1HA4QhzZjvNqRn2FtCTQyk2vgF8MztWcQ=="}]}/*CFG-END*/;
 (function(){
 var KEY="bioHLquest.code";
 var Admin=(function(){
  var C=crypto.subtle,TE=new TextEncoder(),TD=new TextDecoder(),K=null,list=[],SRC=null,dirty=false,busy=false,ov=null;
- var TK="bioHLquest.ghtoken",RK="bioHLquest.ghrepo",MK1="/*CFG-"+"START*/",MK2="/*CFG-"+"END*/";
+ var TK="bioHLquest.ghtoken",RK="bioHLquestPro.ghrepo:"+location.pathname.split("/")[1],MK1="/*CFG-"+"START*/",MK2="/*CFG-"+"END*/";
  function b64(a){a=new Uint8Array(a);var s="";for(var i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s);}
  function cat(a,b){var r=new Uint8Array(a.length+b.byteLength);r.set(a);r.set(new Uint8Array(b),a.length);return r;}
  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
@@ -159,7 +159,7 @@ async function findEntry(code){
   var base=await C.importKey("raw",new TextEncoder().encode(norm(code)),"PBKDF2",false,["deriveKey"]);
   var kek=await C.deriveKey({name:"PBKDF2",salt:u8(CFG.salt),iterations:CFG.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
   for(var i=0;i<CFG.e.length;i++){var en=CFG.e[i],w=u8(en.w);
-    try{var raw=await C.decrypt({name:"AES-GCM",iv:w.subarray(0,12),additionalData:new TextEncoder().encode(JSON.stringify([en.x,en.a]))},kek,w.subarray(12));return {raw:raw,x:en.x,a:en.a};}catch(e){}}
+    try{var raw=await C.decrypt({name:"AES-GCM",iv:w.subarray(0,12),additionalData:new TextEncoder().encode(JSON.stringify([en.x,en.a]))},kek,w.subarray(12));return {raw:raw,x:en.x,a:en.a,i:i};}catch(e){}}
   return null;
 }
 async function openApp(raw){
@@ -172,21 +172,23 @@ async function openApp(raw){
 }
 function fmt(t){return new Date(t).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});}
 var f=document.getElementById("f"),inp=document.getElementById("code"),msg=document.getElementById("msg"),btn=document.getElementById("go");
-function fail(t){btn.disabled=false;btn.textContent="Unlock";msg.textContent=t;inp.focus();}
+function fail(t){btn.disabled=false;btn.textContent="Unlock · Entrar";msg.textContent=t;inp.focus();}
 async function attempt(code,remember){
-  btn.disabled=true;btn.textContent="Opening…";msg.textContent="";
-  try{await getData();}catch(e){dataP=null;return fail("Couldn't download the app. Check your internet connection and try again.");}
+  btn.disabled=true;btn.textContent="Opening… · Abriendo…";msg.textContent="";
+  try{await getData();}catch(e){dataP=null;return fail("Couldn't download the app. Check your connection. · No se pudo descargar la app. Revisa tu conexión.");}
   var ent=null;try{ent=await findEntry(code);}catch(e){}
-  if(!ent){try{localStorage.removeItem(KEY);}catch(e){}return fail("That code didn't work. Check it and try again.");}
-  if(ent.x){var now=await serverNow();if(now>=ent.x){try{localStorage.removeItem(KEY);}catch(e){}return fail("Your access ended on "+fmt(ent.x)+". Contact Mr. A. Agurto for a new code.");}}
+  if(!ent){try{localStorage.removeItem(KEY);}catch(e){}return fail("That code didn't work. · Ese código no funciona.");}
+  if(ent.x){var now=await serverNow();if(now>=ent.x){try{localStorage.removeItem(KEY);}catch(e){}return fail("Your access ended on "+fmt(ent.x)+". · Tu acceso terminó. Contact / Contacta a Mr. A. Agurto.");}}
   var html=null;try{html=await openApp(ent.raw);}catch(e){}
-  if(!html)return fail("Something went wrong opening the app. Reload the page and try again.");
+  if(!html)return fail("Something went wrong. Reload the page. · Algo salió mal. Recarga la página.");
   try{remember?localStorage.setItem(KEY,code):localStorage.removeItem(KEY);}catch(e){}
   if(ent.x){var left=ent.x-Date.now();if(left<2147483000)setTimeout(function(){location.reload();},Math.max(left,1000));}
+  var nm="";try{var kk=await crypto.subtle.importKey("raw",ent.raw,"AES-GCM",false,["decrypt"]);var mm=u8(CFG.e[ent.i].m);nm=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:mm.subarray(0,12)},kk,mm.subarray(12)))).name;}catch(e){}
+  window.__ACCESS={x:ent.x||0,a:ent.a||0,name:nm};
   document.open();document.write(html);document.close();
   if(ent.a)setTimeout(function(){Admin.init(ent.raw);},50);
 }
-f.addEventListener("submit",function(e){e.preventDefault();var c=inp.value.trim();if(!c){msg.textContent="Type your access code first.";return;}attempt(c,document.getElementById("rem").checked);});
+f.addEventListener("submit",function(e){e.preventDefault();var c=inp.value.trim();if(!c){msg.textContent="Type your access code first. · Escribe primero tu código.";return;}attempt(c,document.getElementById("rem").checked);});
 if(!window.crypto||!crypto.subtle){msg.textContent="This browser can't open the app. Please use an up-to-date Chrome, Safari, Edge or Firefox.";btn.disabled=true;return;}
 getData().catch(function(){});
 var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}

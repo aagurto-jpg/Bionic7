@@ -1,5 +1,5 @@
-# Bio HL Exam Quest Pro (private edition)
+# Bio Exam Quest Pro (private edition) v2
 
 Developed by Mr. A. Agurto, 2026 V1.0
 
-Encrypted study app. It opens only with a personal access code.
+Encrypted bilingual (EN/ES) SL/HL study app. Opens only with a personal access code.
